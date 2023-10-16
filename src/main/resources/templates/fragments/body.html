@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt_BR" 
+    xmlns:th="www.thymeleaf.org" 
+    th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragments Body</title>
+</head>
+<body>
+
+    <!-- Logo + título da página -->
+    <div class="logo-bar mb-0 p-0" th:fragment="logo(titulo)">
+        <span class="logo-font">
+            <img th:src="@{/imagens/header-t.png}" th:text="${titulo}"/> 
+        </span>
+    </div>
+
+    <!-- Menu superior da página -->
+    <div class="navbar-nav" th:fragment="menu">
+        <a sec:authorize="hasAnyRole('USER', 'ADMIN')" th:classappend="${menu == 'home'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/home}">
+            Home
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:classappend="${menu == 'home'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/home}">
+            Médicos
+        </a>
+        <a sec:authorize="hasAnyRole('USER', 'ADMIN')" th:classappend="${menu == 'home'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/home}">
+            Enfermeiros
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:classappend="${menu == 'home'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/home}">
+            Recepcionistas
+        </a>
+        <a sec:authorize="hasAnyRole('USER', 'ADMIN')" th:classappend="${menu == 'home'} ? 'active'" 
+            class="nav-item nav-link"  th:href="@{/home}">
+            Pacientes
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:classappend="${menu == 'home'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/home}">
+            Relatórios
+        </a>  
+    </div>
+
+    <!-- Botão Sair da página Home + identificação do usuário -->
+    <!-- class="btn btn-outline-success my-2 my-sm-0" -->
+    <form th:fragment="sair(titulo)" class="form-inline my-2 my-lg-0" 
+            th:action="@{/auth/logout}" method="POST">
+        <span sec:authorize="isAuthenticated()" sec:authentication="name" 
+            style="margin-right: 3px; font-size: 0.8em;"></span>
+        <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">
+            <img th:src="@{/imagens/sair.png}" alt="Sair"/>
+        </button>
+    </form>
+
+    <!-- Título do card da página+ -->
+    <div class="card-header" th:fragment="titulo(titulo)" th:text="${titulo}"></div>
+
+    <!-- Mensagem de Error/Sucesso do Formulário -->
+    <div style="margin-right: 5px;" th:fragment="mensagens">
+        <div th:text="${errorMensagem}" 
+            th:if="${errorMensagem ne null}" 
+            class="alert alert-danger" ></div>
+
+        <div th:text="${succesMensagem}" 
+            th:if="${succesMensagem ne null}" 
+            class="alert alert-success" ></div>
+    </div>
+
+</body>
+</html>
