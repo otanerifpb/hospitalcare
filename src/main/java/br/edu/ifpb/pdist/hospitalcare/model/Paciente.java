@@ -9,11 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 //import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -37,11 +41,14 @@ public class Paciente implements Serializable{
     private String email;
 
     // Relação entre Paciente e Médido (1:1)
+    @ManyToOne
+    @JoinColumn(name = "id_medico")
+    @ToString.Exclude
     private Medico medico;
 
     // Relação entre Paciente e Anamnese (1:N)
-    private Set<Anaminese> anemineses = new HashSet<Anaminese>(); 
+    //private Set<Anaminese> anemineses = new HashSet<Anaminese>(); 
 
     // Relação entre Paciente e Prontuário (1:N)
-    private Set<Prontuario> prontuarios = new HashSet<Prontuario>();  
+    //private Set<Prontuario> prontuarios = new HashSet<Prontuario>();  
 }

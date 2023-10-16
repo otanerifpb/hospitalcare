@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}"
+    th:with="titulo1='Cadastrar Médico', titulo2='Cadastro de Médico'">
+
+<body>
+    <div layout:fragment="content">
+        <form th:action="@{/medicos}" method="POST" th:object="${medico}">
+            <div th:replace="~{/fragments/body :: formMedico}"></div>
+        </form>
+    </div>
+</body>
+</html>
